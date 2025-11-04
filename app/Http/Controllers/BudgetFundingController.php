@@ -30,9 +30,23 @@ class BudgetFundingController extends Controller
 
     public function countBudgetsPerFunding()
     {
-        return BudgetFundings::query()
-            ->select('fundings_id', DB::raw('SUM(amount) as total_budgets'))
-            ->groupBy('fundings_id')
+        $budgetTotals = DB::table('budget_fundings')
+            ->select('fundings_id', DB::raw('SUM(amount) as total_budget'))
+            ->groupBy('fundings_id');
+
+        $requestTotals = DB::table('request_forms')
+            ->select('provider_id', DB::raw('SUM(amount) as total_requested'))
+            ->groupBy('provider_id');
+
+        return DB::table(DB::raw("({$budgetTotals->toSql()}) as bf"))
+            ->mergeBindings($budgetTotals)
+            ->leftJoin(DB::raw("({$requestTotals->toSql()}) as rf"), 'rf.provider_id', '=', 'bf.fundings_id')
+            ->mergeBindings($requestTotals)
+            ->select(
+                'bf.fundings_id',
+                DB::raw('bf.total_budget - IFNULL(rf.total_requested, 0) as total_remaining_budget')
+            )
             ->get();
     }
+
 }

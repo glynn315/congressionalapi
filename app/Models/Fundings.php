@@ -13,4 +13,9 @@ class Fundings extends Model
         'dateCreated',
         'is_active',
     ];
+
+    public function budgetFundings()
+    {
+        return $this->hasMany(BudgetFundings::class, 'fundings_id', 'id');
+    }
 }

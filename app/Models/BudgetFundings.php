@@ -15,4 +15,9 @@ class BudgetFundings extends Model
         'is_active',
         'date_created'
     ];
+
+    public function funding()
+    {
+        return $this->belongsTo(Fundings::class, 'fundings_id', 'id');
+    }
 }

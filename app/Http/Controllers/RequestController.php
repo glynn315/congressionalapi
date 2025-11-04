@@ -15,6 +15,7 @@ class RequestController extends Controller
     }
 
     public function storeRequest(Request $request){
+        $countID = requestForm::count();
         $requestField = $request->validate([
             'control_number' => 'integer|required',
             'patients_name' => 'string|required',
@@ -25,6 +26,7 @@ class RequestController extends Controller
             'account_id' => 'integer|required',
             'amount' => 'integer|required',
         ]);
+        $requestField['control_number']='DND-125-' . $countID;
         $requestField['request_form_id']= Uuid::uuid4()->toString();
         $requestField['is_active'] = true;
 
