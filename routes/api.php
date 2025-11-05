@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountManagementController;
+use App\Http\Controllers\AreaController;
 use App\Http\Controllers\BudgetFundingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FundingsController;
@@ -26,6 +27,9 @@ Route::prefix('accounts')->group(function () {
 
 Route::get('/request/display', [RequestController::class, 'displayRequest']);
 Route::post('/request/store', [RequestController::class, 'storeRequest']);
+
+Route::get('/area/dropdown', [AreaController::class, 'dropdownArea']);
+Route::post('/area/store', [AreaController::class, 'storeArea']);
 
 Route::get('/invitation/displayInvitation', [InvitationController::class, 'displayInvitations']);
 Route::post('/invitation/storeInvitation', [InvitationController::class, 'storeRequest']);
