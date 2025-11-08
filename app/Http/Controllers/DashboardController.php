@@ -58,6 +58,7 @@ class DashboardController extends Controller
             ->count();
         $fundsReleased = DB::table('request_forms as r')
             ->join('fundings as f', 'r.provider_id', '=', 'f.id')
+            ->whereDate('r.created_at', $today)
             ->select(
                 'r.provider_id',
                 'f.funding_information',
@@ -65,6 +66,11 @@ class DashboardController extends Controller
             )
             ->groupBy('r.provider_id', 'f.funding_information')
             ->get();
+        $pettyCashCount = DB::table('budget_fundings')
+            ->join('fundings', 'fundings.id', '=', 'budget_fundings.fundings_id')
+            ->where('fundings.funding_information', 'Petty Cash')
+            ->whereDate('budget_fundings.date_created', $today)
+            ->count();
         $socialWorkerAssist = DB::table('request_forms as r')
             ->join('account_management as a', 'a.account_id', '=', 'r.account_id')
             ->where('a.role', 'Admin')
@@ -84,6 +90,7 @@ class DashboardController extends Controller
             'upcomingInvitations' => $upcomingInvitations,
             'fundsReleased' => $fundsReleased,
             'socialWorkerAssist' => $socialWorkerAssist,
+            'pettyCash' => $pettyCashCount,
         ]);
     }
 

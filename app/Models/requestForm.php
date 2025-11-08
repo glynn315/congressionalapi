@@ -22,5 +22,7 @@ class requestForm extends Model
         'is_active',
         'amount',
         'account_id',
+        'request_date',
+        'request_provided'
     ];
 }

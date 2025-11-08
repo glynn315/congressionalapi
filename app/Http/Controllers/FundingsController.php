@@ -22,26 +22,30 @@ class FundingsController extends Controller
 
     public function displayFundingPettyCash()
     {
-        $displayList = Fundings::with(['budgetFundings' => function ($query) {
+        $today = Carbon::today();
+        $displayList = Fundings::with(['budgetFundings' => function ($query) use ($today) {
                 $query->select('fundings_id', 'amount', 'date_created')
-                    ->whereDate('date_created', Date::today());
+                    ->whereDate('date_created', $today);
             }])
             ->where('id', 3)
             ->first();
-
         if (!$displayList) {
-            return response()->json([
+            $displayList = Fundings::create([
                 'id' => 3,
                 'funding_information' => 'Petty Cash',
-                'total_remaining_budget' => 0,
-                'budgetFundings' => [],
+                'is_active' => true,
+                'dateCreated' => $today,
             ]);
         }
-
-        return response()->json($displayList);
+        $totalToday = $displayList->budgetFundings->sum('amount');
+        return response()->json([
+            'id' => $displayList->id,
+            'funding_information' => $displayList->funding_information,
+            'date' => $today->toDateString(),
+            'total_today' => $totalToday,
+            'budgetFundings' => $displayList->budgetFundings,
+        ]);
     }
-
-
 
     public function storeFundings(Request $request){
         $InvitationField = $request->validate([

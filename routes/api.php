@@ -6,6 +6,7 @@ use App\Http\Controllers\BudgetFundingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FundingsController;
 use App\Http\Controllers\InvitationController;
+use App\Http\Controllers\MasterListController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\SolicitationController;
 use Illuminate\Http\Request;
@@ -26,10 +27,15 @@ Route::prefix('accounts')->group(function () {
 });
 
 Route::get('/request/display', [RequestController::class, 'displayRequest']);
+Route::get('/request/displayRecent', [RequestController::class, 'displayRecentRequests']);
 Route::post('/request/store', [RequestController::class, 'storeRequest']);
 
 Route::get('/area/dropdown', [AreaController::class, 'dropdownArea']);
 Route::post('/area/store', [AreaController::class, 'storeArea']);
+
+Route::get('/personel/displayList', [MasterListController::class, 'displayPersonel']);
+Route::get('/personel/displayList/{id}', [MasterListController::class, 'displayPersonelbyID']);
+Route::post('/personel/store', [MasterListController::class, 'storePersonel']);
 
 Route::get('/invitation/displayInvitation', [InvitationController::class, 'displayInvitations']);
 Route::post('/invitation/storeInvitation', [InvitationController::class, 'storeRequest']);

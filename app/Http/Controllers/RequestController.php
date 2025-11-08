@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\requestForm;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Ramsey\Uuid\Guid\Guid;
 use Ramsey\Uuid\Uuid;
@@ -11,6 +12,13 @@ class RequestController extends Controller
 {
     public function displayRequest(){
         $displayList = requestForm::all();
+        return response()->json($displayList);
+    }
+
+    public function displayRecentRequests()
+    {
+        $threeMonthsAgo = now()->subMonths(3);
+        $displayList = requestForm::where('request_date', '>=', $threeMonthsAgo)->get();
         return response()->json($displayList);
     }
 
@@ -25,9 +33,11 @@ class RequestController extends Controller
             'provider_id' => 'integer|required',
             'account_id' => 'integer|required',
             'amount' => 'integer|required',
+            'request_provided' => 'string|required',
         ]);
-        $requestField['control_number']='DND-125-' . $countID;
-        $requestField['request_form_id']= Uuid::uuid4()->toString();
+        $requestField['request_date'] = Carbon::now();
+        $requestField['control_number'] ='DND-125-' . $countID;
+        $requestField['request_form_id'] = Uuid::uuid4()->toString();
         $requestField['is_active'] = true;
 
         $requestForm = requestForm::create($requestField);
