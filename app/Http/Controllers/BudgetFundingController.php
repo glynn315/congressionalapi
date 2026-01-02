@@ -13,6 +13,10 @@ class BudgetFundingController extends Controller
         $displayList = BudgetFundings::all();
         return response()->json($displayList);
     }
+    public function displayBudgetsbyID($id){
+        $displayList = BudgetFundings::where('fundings_id' , $id)->get();
+        return response()->json($displayList);
+    }
 
     public function storeBudgets(Request $request){
         $BudgetField = $request->validate([

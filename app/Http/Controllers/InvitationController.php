@@ -18,10 +18,14 @@ class InvitationController extends Controller
         $InvitationField = $request->validate([
             'name_inviter' => 'string|required',
             'purpose' => 'string|required',
+            'contact_number' => 'integer|required',
+            'event_address' => 'string|required',
+            'remarks' => 'string|nullable',
             'reveivedBy' => 'integer|required',
             'dateInvitation' => 'date|required',
         ]);
         $InvitationField['is_active'] = true;
+        $InvitationField['status'] = 'ACTIVE';
         $InvitationField['dateCreated'] = Carbon::now();
 
         $invitationForm = Invitations::create($InvitationField);

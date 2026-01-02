@@ -12,6 +12,8 @@ class Solicitations extends Model
         'name_solicitor',
         'dateSolicitate',
         'purpose',
+        'particular',
+        'amount',
         'dateCreated',
         'reveivedBy',
         'is_active',

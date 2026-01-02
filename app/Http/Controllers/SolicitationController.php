@@ -18,6 +18,8 @@ class SolicitationController extends Controller
         $SolicitationField = $request->validate([
             'name_solicitor' => 'string|required',
             'purpose' => 'string|required',
+            'particular' => 'string|required',
+            'amount' => 'integer|required',
             'reveivedBy' => 'integer|required',
         ]);
         $SolicitationField['is_active'] = true;
