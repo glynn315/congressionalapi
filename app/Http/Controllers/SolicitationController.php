@@ -21,6 +21,7 @@ class SolicitationController extends Controller
             'particular' => 'string|required',
             'amount' => 'integer|required',
             'reveivedBy' => 'integer|required',
+            'date_event' => 'date|nullable',
         ]);
         $SolicitationField['is_active'] = true;
         $SolicitationField['dateCreated'] = Carbon::now();

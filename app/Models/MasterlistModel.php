@@ -11,7 +11,15 @@ class MasterlistModel extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
+        'middle_name',
+        'extension',
+        'birthday',
+        'sex',
+        'civil_status',
+        'purok',
+        'municipality_city',
         'contact_number',
         'affiliate',
         'type',

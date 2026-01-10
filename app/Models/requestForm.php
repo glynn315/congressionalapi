@@ -23,6 +23,9 @@ class requestForm extends Model
         'amount',
         'account_id',
         'request_date',
-        'request_provided'
+        'request_provided',
+        'hospital_name',
+        'is_cancel',
+        'cancel_information',
     ];
 }

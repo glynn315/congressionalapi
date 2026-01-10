@@ -20,7 +20,15 @@ class MasterListController extends Controller
     
     public function storePersonel(Request $request){
         $PersonelFields = $request->validate([
-            'name' => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'middle_name' => 'nullable|string|max:255',
+            'extension' => 'nullable|string|max:255',
+            'birthday' => 'required|date',
+            'sex' => 'required|string',
+            'civil_status' => 'required|string|max:255',
+            'purok' => 'required|string|max:255',
+            'municipality_city' => 'required|string|max:255',
             'contact_number' => 'required|integer',
             'affiliate' => 'nullable|string|max:255',
             'type' => 'required|string|max:255',

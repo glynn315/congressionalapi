@@ -31,6 +31,7 @@ Route::prefix('accounts')->group(function () {
 Route::get('/request/display', [RequestController::class, 'displayRequest']);
 Route::get('/request/displayRecent', [RequestController::class, 'displayRecentRequests']);
 Route::post('/request/store', [RequestController::class, 'storeRequest']);
+Route::put('/request/updateForm/{request_form_id}', [RequestController::class, 'updateRequest']);
 
 Route::get('/area/dropdown', [AreaController::class, 'dropdownArea']);
 Route::post('/area/store', [AreaController::class, 'storeArea']);
